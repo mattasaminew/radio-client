@@ -1,34 +1,9 @@
-.app {
-  text-align: center;
-	width: 100vw;
-	height: 100vh;
-	background-color: lightblue;
-}
-
-.app-container {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.app-header {
-	font-size: 5em;
-}
-
 .audio-player {
+	background-color: lightgray;
 	display: flex;
 	align-items: center;
 }
-.player-indicator {
-	height: 80px;
-}
-.player-indicator.active {
-	animation: logo-spin infinite 1.82s linear;
-}
 
-@keyframes logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.player-icon {
+	margin: 0.25em !important;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Howl, Howler } from 'howler';
-import recordLogo from '../img/logo-record.png';
+import { Icon } from 'semantic-ui-react';
 import '../css/App.css';
 
 class App extends Component {
@@ -8,58 +8,72 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			playing: false
+			playing: false,
+			loading: false,
+			loadedSound: this.liveStream
 		};
 
 		this.togglePlay = this.togglePlay.bind(this);
 	}
 
 	liveStream = new Howl({
-		src: ['http://airtime.ehastings.xyz:8000/live'],
+		src: ['http://airtime.afroasiatic.net:8000/live'],
 		ext: ['mp3'],
-		html5: true
+		html5: true,
+		onplay: () => {this.setState({loading: false, playing: true})}
 	});
 
-	componentDidUpdate() {
-		this.state.playing ? this.liveStream.play() : this.liveStream.pause()
+	togglePlay() {
+		if (this.state.playing) {
+			this.state.loadedSound.pause();
+			this.setState({playing: false});
+		} else {
+			this.setState({loading: true})
+			this.state.loadedSound.play()
+		}
 	}
 
-	togglePlay() {
-		console.log(Howler)
-		this.setState((prevState) => { return {
-			playing: !prevState.playing
-		}})
+	playerIcon() {
+		if (this.state.loading) {
+			return (
+				<Icon
+					name='circle notched'
+					size='huge'
+					loading={true}
+					className="player-icon"
+				/>
+			);
+		} else {
+			if (this.state.playing) {
+				return (
+					<Icon
+						name='pause'
+						size='huge'
+						className="player-icon"
+					/>
+				);
+			} else {
+				return (
+					<Icon
+						name='play'
+						size='huge'
+						className="player-icon"
+					/>
+				);
+			}
+		}
 	}
 
   render() {
-    return (
-      <div className="app">
-				<div className="app-container">
-					<div className="app-header">
-						ቀንድ
-					</div>
-					<AudioController
-						playing={this.state.playing}
-						togglePlay={this.togglePlay}
-					/>
-				</div>
-      </div>
-    );
-  }
-}
 
-class AudioController extends Component {
-	render() {
-		return(
+		return (
 			<div className='audio-player'>
-				<img src={recordLogo} className={this.props.playing ? "player-indicator active" : "player-indicator"} alt="logo" />
-				<div className="play-button" onClick={this.props.togglePlay}>
-					{this.props.playing ? 'Pause' : 'Play'}
+				<div className="play-icon-container" onClick={this.togglePlay}>
+					{this.playerIcon()}
 				</div>
 			</div>
 		);
-
-	}
+  }
 }
 
 export default App;
