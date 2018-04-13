@@ -24,7 +24,7 @@ class App extends Component {
 					<div className="app-header">
 						ቀንድ
 					</div>
-					<AudioPlayer
+					<AudioController
 						playing={this.state.playing}
 						togglePlay={this.togglePlay}
 					/>
@@ -34,7 +34,7 @@ class App extends Component {
   }
 }
 
-class AudioPlayer extends Component {
+class AudioController extends Component {
 	render() {
 		return(
 			<div className='audio-player'>
