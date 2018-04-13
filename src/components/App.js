@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Howl, Howler } from 'howler';
 import recordLogo from '../img/logo-record.png';
 import '../css/App.css';
 
@@ -12,11 +13,24 @@ class App extends Component {
 
 		this.togglePlay = this.togglePlay.bind(this);
 	}
+
+	liveStream = new Howl({
+		src: ['http://airtime.ehastings.xyz:8000/live'],
+		ext: ['mp3'],
+		html5: true
+	});
+
+	componentDidUpdate() {
+		this.state.playing ? this.liveStream.play() : this.liveStream.pause()
+	}
+
 	togglePlay() {
+		console.log(Howler)
 		this.setState((prevState) => { return {
 			playing: !prevState.playing
 		}})
 	}
+
   render() {
     return (
       <div className="app">

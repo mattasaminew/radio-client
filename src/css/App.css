@@ -7,11 +7,14 @@
 
 .app-container {
 	height: 100%;
-	font-size: 5em;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+.app-header {
+	font-size: 5em;
 }
 
 .audio-player {
