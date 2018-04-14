@@ -20,20 +20,28 @@ class App extends Component {
 		src: ['http://airtime.afroasiatic.net:8000/live'],
 		ext: ['mp3'],
 		html5: true,
-		onplay: () => {this.setState({loading: false, playing: true})}
+		onplay: () => {this.setState({loading: false, playing: true})},
+		onpause: () => {this.setState({loading: false, playing: false})},
+		onstop: () => {this.setState({loading: false, playing: false})},
+		onplayerror: () => {this.setState({loading: false, playing: false})},
+		onloaderror: () => {this.setState({loading: false, playing: false})}
 	});
 
 	togglePlay() {
 		if (this.state.playing) {
 			this.state.loadedSound.pause();
-			this.setState({playing: false});
 		} else {
-			this.setState({loading: true})
-			this.state.loadedSound.play()
+			this.playLoadedHowl();
 		}
 	}
+	playLoadedHowl() {
+		if (this.state.loadedSound.state() !== 'loaded') {
+			this.setState({loading: true})
+		};
+		this.state.loadedSound.play()
+	}
 
-	playerIcon() {
+	playerIcon = () => {
 		if (this.state.loading) {
 			return (
 				<Icon
