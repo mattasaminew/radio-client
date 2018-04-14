@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Howl, Howler } from 'howler';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 import '../css/App.css';
 
 class App extends Component {
@@ -45,8 +45,8 @@ class App extends Component {
 		if (this.state.loading) {
 			return (
 				<Icon
-					name='circle notched'
-					size='huge'
+					name='spinner'
+					size='big'
 					loading={true}
 					className="player-icon"
 				/>
@@ -56,7 +56,7 @@ class App extends Component {
 				return (
 					<Icon
 						name='pause'
-						size='huge'
+						size='big'
 						className="player-icon"
 					/>
 				);
@@ -64,7 +64,7 @@ class App extends Component {
 				return (
 					<Icon
 						name='play'
-						size='huge'
+						size='big'
 						className="player-icon"
 					/>
 				);
@@ -73,15 +73,30 @@ class App extends Component {
 	}
 
   render() {
-
 		return (
 			<div className='audio-player'>
 				<div className="play-icon-container" onClick={this.togglePlay}>
 					{this.playerIcon()}
 				</div>
+				<OnAirDisplay onAir={true} playing={this.state.playing}/>
 			</div>
 		);
   }
+}
+
+function OnAirDisplay(props) {
+	return (
+		<Label className='on-air-display'>
+			<Icon
+				name='refresh'
+				loading={props.playing}
+				style={{
+					color: props.onAir ? 'green' : 'red'
+				}}
+			/>
+			Live
+		</Label>
+	);
 }
 
 export default App;

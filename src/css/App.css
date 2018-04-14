@@ -5,6 +5,6 @@
 	align-items: center;
 }
 
-.player-icon {
+.player-icon, .on-air-display {
 	margin: 0.25em !important;
 }
