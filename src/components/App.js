@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Howl, Howler } from 'howler';
+import { Link } from 'react-router-dom';
 import { Icon, Label } from 'semantic-ui-react';
 import '../css/App.css';
 
@@ -76,8 +77,19 @@ class App extends Component {
 		return (
 			<div className='app'>
 				<div className='app-header'>
-					<div className='header-button'>LIVE</div>
-					<div className='header-button'>ARCHIVE</div>
+					<div className='header-button'>
+						<Link to='/archive' className='header-button-link' >
+							ARCHIVE
+						</Link>
+					</div>
+					<div className='header-button'>
+						<Link to='/' className='header-button-link' >
+							LIVE
+						</Link>
+					</div>
+				</div>
+				<div className='app-body'>
+					{this.props.children}
 				</div>
 				<div className='audio-player'>
 					<div className="play-icon-container" onClick={this.togglePlay}>

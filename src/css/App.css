@@ -16,10 +16,20 @@
 .app-header {
 	display: flex;
 	flex-direction: row-reverse;
-
+	position: fixed;
+	top: 0;
+	right: 0;
 }
 
 .header-button {
 	padding: 1em;
 	font-size: x-large;
+}
+
+.app-body {
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
