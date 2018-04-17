@@ -74,11 +74,17 @@ class App extends Component {
 
   render() {
 		return (
-			<div className='audio-player'>
-				<div className="play-icon-container" onClick={this.togglePlay}>
-					{this.playerIcon()}
+			<div className='app'>
+				<div className='app-header'>
+					<div className='header-button'>LIVE</div>
+					<div className='header-button'>ARCHIVE</div>
 				</div>
-				<OnAirDisplay onAir={true} playing={this.state.playing}/>
+				<div className='audio-player'>
+					<div className="play-icon-container" onClick={this.togglePlay}>
+						{this.playerIcon()}
+					</div>
+					<OnAirDisplay onAir={true} playing={this.state.playing}/>
+				</div>
 			</div>
 		);
   }
@@ -90,9 +96,7 @@ function OnAirDisplay(props) {
 			<Icon
 				name='refresh'
 				loading={props.playing}
-				style={{
-					color: props.onAir ? 'green' : 'red'
-				}}
+				style={{color: props.onAir ? 'green' : 'red'}}
 			/>
 			Live
 		</Label>

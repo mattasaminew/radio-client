@@ -1,4 +1,8 @@
 .audio-player {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
 	background-color: lightgray;
 	display: flex;
 	justify-content: space-between;
@@ -7,4 +11,15 @@
 
 .player-icon, .on-air-display {
 	margin: 0.25em !important;
+}
+
+.app-header {
+	display: flex;
+	flex-direction: row-reverse;
+
+}
+
+.header-button {
+	padding: 1em;
+	font-size: x-large;
 }
