@@ -1,0 +1,9 @@
+.show-tile {
+	border-style: solid;
+	border-width: thick;
+	width: 20vw;
+	height: 12.5vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
