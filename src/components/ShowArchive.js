@@ -15,7 +15,7 @@ class ShowArchive extends Component {
 	render() {
 		const mixTiles = this.state.data ? this.state.data.map((data, index) =>  <MixTile key={index} data={data}/>) : null
 		return(
-			<div>
+			<div className='show-archive-container'>
 				<h2>{this.state.data ? this.state.data[0].artist_name : null}</h2>
 				<div>
 					{mixTiles}

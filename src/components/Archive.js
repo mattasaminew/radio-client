@@ -17,7 +17,7 @@ class Archive extends Component {
 	render() {
 		const showTiles = this.state.data ? this.state.data.map((data, index) =>  <ShowTile key={index} data={data} /> ) : null
 		return(
-			<div>
+			<div className='archive-container'>
 				{showTiles}
 			</div>
 		);

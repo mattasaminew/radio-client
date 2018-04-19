@@ -30,6 +30,11 @@
 	width: 100vw;
 	min-height: 100vh;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+}
+
+.app-body > div {
+	padding-top: 4em;
+	padding-bottom: 4em;
 }

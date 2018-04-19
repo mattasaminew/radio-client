@@ -1,8 +1,17 @@
+.archive-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: flex-start;
+}
+
 .show-tile {
 	border-style: solid;
 	border-width: thick;
-	width: 20vw;
-	height: 12.5vw;
+	width: 25vw;
+	height: 15.625vw;
+	margin: 1em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
