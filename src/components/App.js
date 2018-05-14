@@ -19,7 +19,7 @@ class App extends Component {
 	}
 
 	liveStream = new Howl({
-		src: ['http://airtime.afroasiatic.net:8000/live'],
+		src: ['http://afroasiatic.net:8000/live'],
 		ext: ['mp3'],
 		html5: true,
 		onplay: () => {this.setState({loading: false, playing: true})},
