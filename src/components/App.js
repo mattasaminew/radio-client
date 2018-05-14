@@ -44,34 +44,14 @@ class App extends Component {
 	}
 
 	playerIcon = () => {
-		if (this.state.loading) {
-			return (
-				<Icon
-					name='spinner'
-					size='big'
-					loading={true}
-					className="player-icon"
-				/>
-			);
-		} else {
-			if (this.state.playing) {
-				return (
-					<Icon
-						name='pause'
-						size='big'
-						className="player-icon"
-					/>
-				);
-			} else {
-				return (
-					<Icon
-						name='play'
-						size='big'
-						className="player-icon"
-					/>
-				);
-			}
-		}
+		return (
+			<Icon
+				name={this.state.loading ? 'spinner' : (this.state.playing ? 'pause' : 'play')}
+				size='big'
+				loading={this.state.loading}
+				className="player-icon"
+			/>
+		);
 	}
 
   render() {
