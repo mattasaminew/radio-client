@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../css/ViewRootPath.css';
 
 const ViewRootPath = () => {

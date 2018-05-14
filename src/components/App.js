@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
+// import { Howl, Howler } from 'howler';
 import { Link } from 'react-router-dom';
 import { Icon, Label } from 'semantic-ui-react';
 import '../css/App.css';

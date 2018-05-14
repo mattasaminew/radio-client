@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Dimmer, Loader } from 'semantic-ui-react';
+// import { Dimmer, Loader } from 'semantic-ui-react';
 import '../css/Archive.css';
 
 class Archive extends Component {
@@ -25,9 +25,6 @@ class Archive extends Component {
 }
 
 class ShowTile extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
 		return(
 			<Link to={'/archive/' + this.props.data.id}>

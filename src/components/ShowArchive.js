@@ -26,9 +26,6 @@ class ShowArchive extends Component {
 }
 
 class MixTile extends Component {
-	constructor(props) {
-		super(props);
-	}
 	render() {
 		return(
 			<div className='show-tile'>
