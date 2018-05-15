@@ -4,6 +4,6 @@ export const AudioContext = React.createContext({
 	playing: false,
 	loading: false,
 	loadedSound: null,
-	togglePlay: () => {},
+	togglePlay: null,
 	playerIcon: null
 });
