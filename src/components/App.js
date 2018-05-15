@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Howl } from 'howler';
 // import { Howl, Howler } from 'howler';
 import { Link } from 'react-router-dom';
+import { AudioContext } from '../context/audio-context';
 import { Icon, Label } from 'semantic-ui-react';
 import '../css/App.css';
 
@@ -12,10 +13,10 @@ class App extends Component {
 		this.state = {
 			playing: false,
 			loading: false,
-			loadedSound: this.liveStream
+			loadedSound: this.liveStream,
+			togglePlay: this.togglePlay,
+			playerIcon: this.playerIcon
 		};
-
-		this.togglePlay = this.togglePlay.bind(this);
 	}
 
 	liveStream = new Howl({
@@ -29,13 +30,6 @@ class App extends Component {
 		onloaderror: () => {this.setState({loading: false, playing: false})}
 	});
 
-	togglePlay() {
-		if (this.state.playing) {
-			this.state.loadedSound.pause();
-		} else {
-			this.playLoadedHowl();
-		}
-	}
 	playLoadedHowl() {
 		if (this.state.loadedSound.state() !== 'loaded') {
 			this.setState({loading: true})
@@ -43,44 +37,60 @@ class App extends Component {
 		this.state.loadedSound.play()
 	}
 
-	playerIcon = () => {
-		return (
-			<Icon
-				name={this.state.loading ? 'spinner' : (this.state.playing ? 'pause' : 'play')}
-				size='big'
-				loading={this.state.loading}
-				className="player-icon"
-			/>
-		);
+	togglePlay = () => {
+		if (this.state.playing) {
+			this.state.loadedSound.pause();
+		} else {
+			this.playLoadedHowl();
+		}
 	}
 
   render() {
 		return (
-			<div className='app'>
-				<div className='app-header'>
-					<div className='header-button'>
-						<Link to='/archive' className='header-button-link' >
-							ARCHIVE
-						</Link>
+			<AudioContext.Provider value={this.state}>
+				<div className='app'>
+					<div className='app-header'>
+						<div className='header-button'>
+							<Link to='/archive' className='header-button-link' >
+								ARCHIVE
+							</Link>
+						</div>
+						<div className='header-button'>
+							<Link to='/' className='header-button-link' >
+								LIVE
+							</Link>
+						</div>
 					</div>
-					<div className='header-button'>
-						<Link to='/' className='header-button-link' >
-							LIVE
-						</Link>
+					<div className='app-body'>
+						{this.props.children}
 					</div>
+					<AudioPlayer />
 				</div>
-				<div className='app-body'>
-					{this.props.children}
-				</div>
-				<div className='audio-player'>
-					<div className="play-icon-container" onClick={this.togglePlay}>
-						{this.playerIcon()}
-					</div>
-					<OnAirDisplay onAir={true} playing={this.state.playing}/>
-				</div>
-			</div>
+			</AudioContext.Provider>
 		);
   }
+}
+
+class AudioPlayer extends Component {
+	render() {
+		return (
+			<AudioContext.Consumer>
+				{(context) => (
+						<div className='audio-player'>
+							<div className="play-icon-container" onClick={context.togglePlay}>
+								<Icon
+									name={context.loading ? 'spinner' : (context.playing ? 'pause' : 'play')}
+									size='big'
+									loading={context.loading}
+									className="player-icon"
+								/>
+							</div>
+							<OnAirDisplay onAir={true} playing={context.playing} />
+						</div>
+				)}
+			</AudioContext.Consumer>
+		);
+	}
 }
 
 function OnAirDisplay(props) {
