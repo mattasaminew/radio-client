@@ -47,8 +47,8 @@ class App extends Component {
 	}
 
 	loadLiveStream = () => {
+		if (this.state.loadedHowl === this.liveStream) { return; };
 		if (this.state.loadedHowl.playing()) { this.state.loadedHowl.stop() };
-		if (this.state.loadedHowl === this.liveStream) { this.state.loadedHowl.unload() };
 		this.setState({loadedHowl: this.liveStream});
 	}
 
