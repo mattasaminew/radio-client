@@ -15,6 +15,7 @@ class App extends Component {
 			loading: false,
 			loadedHowl: this.liveStream,
 			togglePlay: this.togglePlay,
+			changeLoadedHowl: this.changeLoadedHowl,
 			playerIcon: this.playerIcon
 		};
 	}
@@ -45,12 +46,20 @@ class App extends Component {
 		}
 	}
 
+	loadLiveStream = () => {
+		if (this.state.loadedHowl.playing()) { this.state.loadedHowl.stop() };
+		if (this.state.loadedHowl === this.liveStream) { this.state.loadedHowl.unload() };
+		this.setState({loadedHowl: this.liveStream});
+	}
+
 	changeLoadedHowl = (source) => {
 		if (this.state.loadedHowl.playing()) { this.state.loadedHowl.stop() };
+		if (this.state.loadedHowl === this.liveStream) { this.state.loadedHowl.unload() };
 		this.setState({
 			loadedHowl: new Howl({
 										src: [ source ],
 										ext: ['mp3'],
+										format: ['mp3'],
 										html5: true,
 										onplay: () => {this.setState({loading: false, playing: true})},
 										onpause: () => {this.setState({loading: false, playing: false})},
@@ -65,18 +74,7 @@ class App extends Component {
 		return (
 			<AudioContext.Provider value={this.state}>
 				<div className='app'>
-					<div className='app-header'>
-						<div className='header-button'>
-							<Link to='/archive' className='header-button-link' >
-								ARCHIVE
-							</Link>
-						</div>
-						<div className='header-button'>
-							<Link to='/' className='header-button-link' >
-								LIVE
-							</Link>
-						</div>
-					</div>
+					<AppHeader loadLiveStream={this.loadLiveStream} />
 					<div className='app-body'>
 						{this.props.children}
 					</div>
@@ -85,6 +83,30 @@ class App extends Component {
 			</AudioContext.Provider>
 		);
   }
+}
+
+class AppHeader extends Component {
+	render() {
+		return (
+			<div className='app-header'>
+				<div className='header-button'>
+					<Link to='/archive' className='header-button-link' >
+						ARCHIVE
+					</Link>
+				</div>
+				<div className='header-button'>
+					<div onClick={this.props.loadLiveStream}>
+						LIVE
+					</div>
+				</div>
+				<div className='header-button'>
+					<Link to='/' className='header-button-link'>
+						HOME
+					</Link>
+				</div>
+			</div>
+		);
+	}
 }
 
 class AudioPlayer extends Component {

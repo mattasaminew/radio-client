@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AudioContext } from '../context/audio-context';
 import '../css/ShowArchive.css';
 
 class ShowArchive extends Component {
@@ -26,11 +27,18 @@ class ShowArchive extends Component {
 }
 
 class MixTile extends Component {
+	// sourceLink = "http://localhost:3000/episode/" + this.props.data.id;
+	// changeHowl = () => {console.log(this.sourceLink)};
 	render() {
+		const sourceLink = "http://localhost:3000/episode/" + this.props.data.id;
 		return(
-			<div className='show-tile'>
-				{this.props.data.track_title}
-			</div>
+			<AudioContext.Consumer>
+				{(context) => (
+						<div className='show-tile' onClick={() => context.changeLoadedHowl(sourceLink)}>
+							{this.props.data.track_title}
+						</div>
+				)}
+			</AudioContext.Consumer>
 		);
 	}
 }
