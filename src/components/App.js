@@ -13,7 +13,7 @@ class App extends Component {
 		this.state = {
 			playing: false,
 			loading: false,
-			loadedSound: this.liveStream,
+			loadedHowl: this.liveStream,
 			togglePlay: this.togglePlay,
 			playerIcon: this.playerIcon
 		};
@@ -31,18 +31,34 @@ class App extends Component {
 	});
 
 	playLoadedHowl() {
-		if (this.state.loadedSound.state() !== 'loaded') {
+		if (this.state.loadedHowl.state() !== 'loaded') {
 			this.setState({loading: true})
 		};
-		this.state.loadedSound.play()
+		this.state.loadedHowl.play()
 	}
 
 	togglePlay = () => {
 		if (this.state.playing) {
-			this.state.loadedSound.pause();
+			this.state.loadedHowl.pause();
 		} else {
 			this.playLoadedHowl();
 		}
+	}
+
+	changeLoadedHowl = (source) => {
+		if (this.state.loadedHowl.playing()) { this.state.loadedHowl.stop() };
+		this.setState({
+			loadedHowl: new Howl({
+										src: [ source ],
+										ext: ['mp3'],
+										html5: true,
+										onplay: () => {this.setState({loading: false, playing: true})},
+										onpause: () => {this.setState({loading: false, playing: false})},
+										onstop: () => {this.setState({loading: false, playing: false})},
+										onplayerror: () => {this.setState({loading: false, playing: false})},
+										onloaderror: () => {this.setState({loading: false, playing: false})}
+									})
+		});
 	}
 
   render() {
