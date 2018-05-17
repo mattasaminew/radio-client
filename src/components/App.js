@@ -14,6 +14,9 @@ class App extends Component {
 			playing: false,
 			loading: false,
 			loadedHowl: this.liveStream,
+			loadedHowls: [{fileId: null, howl: this.liveStream}],
+			fileId: null,
+			howlId: null,
 			togglePlay: this.togglePlay,
 			changeLoadedHowl: this.changeLoadedHowl,
 			playerIcon: this.playerIcon
@@ -21,56 +24,72 @@ class App extends Component {
 	}
 
 	liveStream = new Howl({
-		src: ['http://afroasiatic.net:8000/live'],
+		src: ['http://backsp.in:8000/live'],
 		ext: ['mp3'],
 		html5: true,
-		onplay: () => {this.setState({loading: false, playing: true})},
+		onplay: (id) => {this.setState({loading: false, playing: true, howlId: id})},
 		onpause: () => {this.setState({loading: false, playing: false})},
-		onstop: () => {this.setState({loading: false, playing: false})},
-		onplayerror: () => {this.setState({loading: false, playing: false})},
-		onloaderror: () => {this.setState({loading: false, playing: false})}
+		onstop: () => {this.setState({loading: false, playing: false, howlId: null})},
+		onplayerror: () => {this.setState({loading: false, playing: false, howlId: null})},
+		onloaderror: () => {this.setState({loading: false, playing: false, howlId: null})}
 	});
 
+	archiveStream = (source) => (
+		new Howl({
+			src: [ source ],
+			ext: ['mp3'],
+			format: ['mp3'],
+			html5: true,
+			onplay: (id) => {this.setState({loading: false, playing: true, howlId: id})},
+			onpause: () => {this.setState({loading: false, playing: false})},
+			onstop: () => {this.setState({loading: false, playing: false, howlId: null})},
+			onplayerror: () => {this.setState({loading: false, playing: false, howlId: null})},
+			onloaderror: () => {this.setState({loading: false, playing: false, howlId: null})}
+		})
+	);
+
+	currentHowl = () => {
+		let id = this.state.fileId;
+		return this.state.loadedHowls.find((howl) => howl.fileId === id ).howl;
+	}
+
 	playLoadedHowl() {
-		if (this.state.loadedHowl.state() !== 'loaded') {
+		if (this.currentHowl().state() !== 'loaded') {
 			this.setState({loading: true})
 		};
-		this.state.loadedHowl.play()
+		this.currentHowl().play()
 	}
 
 	togglePlay = () => {
 		if (this.state.playing) {
-			this.state.loadedHowl.pause();
+			this.currentHowl().pause();
 		} else {
 			this.playLoadedHowl();
 		}
 	}
 
 	loadLiveStream = () => {
-		if (this.state.loadedHowl === this.liveStream) { return; };
-		if (this.state.loadedHowl.playing()) { this.state.loadedHowl.stop() };
-		this.setState({loadedHowl: this.liveStream});
+		if (this.state.fileId === null) { return; };
+		this.currentHowl().stop()
+		this.setState({fileId: null});
 	}
 
-	changeLoadedHowl = (source) => {
-		if (this.state.loadedHowl.playing()) { this.state.loadedHowl.stop() };
-		if (this.state.loadedHowl === this.liveStream) { this.state.loadedHowl.unload() };
-		this.setState({
-			loadedHowl: new Howl({
-										src: [ source ],
-										ext: ['mp3'],
-										format: ['mp3'],
-										html5: true,
-										onplay: () => {this.setState({loading: false, playing: true})},
-										onpause: () => {this.setState({loading: false, playing: false})},
-										onstop: () => {this.setState({loading: false, playing: false})},
-										onplayerror: () => {this.setState({loading: false, playing: false})},
-										onloaderror: () => {this.setState({loading: false, playing: false})}
-									})
-		});
+	changeLoadedHowl = (id, source) => {
+		if (this.state.fileId === id) { return; };
+		this.currentHowl().stop();
+		if (this.state.fileId === null) {
+			this.currentHowl().unload()
+		}
+		this.setState((prevState) => ({
+			fileId: id,
+			loadedHowls: prevState.loadedHowls.some((howl) => howl.fileId === id) ?
+										prevState.loadedHowls :
+										prevState.loadedHowls.concat([{fileId: id, howl: this.archiveStream(source)}])
+		}));
 	}
 
   render() {
+		console.log(this.state.loadedHowls)
 		return (
 			<AudioContext.Provider value={this.state}>
 				<div className='app'>

@@ -34,7 +34,7 @@ class MixTile extends Component {
 		return(
 			<AudioContext.Consumer>
 				{(context) => (
-						<div className='show-tile' onClick={() => context.changeLoadedHowl(sourceLink)}>
+						<div className='show-tile' onClick={() => context.changeLoadedHowl(this.props.data.id, sourceLink)}>
 							{this.props.data.track_title}
 						</div>
 				)}
