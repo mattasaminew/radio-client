@@ -8,7 +8,7 @@ class ShowArchive extends Component {
 		this.state = {data: null, loading: true}
 	}
 	componentDidMount() {
-		fetch('http://localhost:3000/shows/' + this.props.match.params.id)
+		fetch(process.env.REACT_APP_API_URL + '/shows/' + this.props.match.params.id)
 			.then( (response) => response.json() )
 			.then( (requestData) => this.setState({data: requestData, loading: false}) )
 			.catch( (error) => console.log(error) );
@@ -27,10 +27,8 @@ class ShowArchive extends Component {
 }
 
 class MixTile extends Component {
-	// sourceLink = "http://localhost:3000/episode/" + this.props.data.id;
-	// changeHowl = () => {console.log(this.sourceLink)};
 	render() {
-		const sourceLink = "http://localhost:3000/episode/" + this.props.data.id;
+		const sourceLink = process.env.REACT_APP_API_URL + "/episode/" + this.props.data.id;
 		return(
 			<AudioContext.Consumer>
 				{(context) => (
