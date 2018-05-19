@@ -21,6 +21,12 @@
 	right: 0;
 }
 
+.app-logo {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
 .header-button {
 	padding: 1em;
 	font-size: x-large;

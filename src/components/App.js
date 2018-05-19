@@ -4,6 +4,7 @@ import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 import { AudioContext } from '../context/audio-context';
 import { Icon, Label } from 'semantic-ui-react';
+import logo from '../backspin-logo-dj.png';
 import '../css/App.css';
 
 class App extends Component {
@@ -69,9 +70,12 @@ class App extends Component {
 	}
 
 	loadLiveStream = () => {
-		if (this.state.fileId === null) { return; };
+		if (this.state.fileId === null) {
+			if (!this.state.loading && !this.state.playing) { this.playLoadedHowl(); }
+			return;
+		};
 		this.currentHowl().stop()
-		this.setState({fileId: null});
+		this.setState({fileId: null}, () => this.playLoadedHowl());
 	}
 
 	changeLoadedHowl = (id, source) => {
@@ -85,14 +89,14 @@ class App extends Component {
 			loadedHowls: prevState.loadedHowls.some((howl) => howl.fileId === id) ?
 										prevState.loadedHowls :
 										prevState.loadedHowls.concat([{fileId: id, howl: this.archiveStream(source)}])
-		}));
+		}), () => this.playLoadedHowl());
 	}
 
   render() {
-		console.log(this.state.loadedHowls)
 		return (
 			<AudioContext.Provider value={this.state}>
 				<div className='app'>
+					<AppLogo loadLiveStream={this.loadLiveStream} />
 					<AppHeader loadLiveStream={this.loadLiveStream} />
 					<div className='app-body'>
 						{this.props.children}
@@ -102,6 +106,16 @@ class App extends Component {
 			</AudioContext.Provider>
 		);
   }
+}
+
+class AppLogo extends Component {
+	render() {
+		return (
+			<Link to='/' className='app-logo'>
+				<img src={logo} alt='logo' />
+			</Link>
+		);
+	}
 }
 
 class AppHeader extends Component {
@@ -117,11 +131,6 @@ class AppHeader extends Component {
 					<div onClick={this.props.loadLiveStream}>
 						LIVE
 					</div>
-				</div>
-				<div className='header-button'>
-					<Link to='/' className='header-button-link'>
-						HOME
-					</Link>
 				</div>
 			</div>
 		);
