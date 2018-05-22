@@ -25,7 +25,7 @@ class App extends Component {
 	}
 
 	liveStream = new Howl({
-		src: ['http://backsp.in:8000/live'],
+		src: [ process.env.REACT_APP_LIVE_STREAM_URL ],
 		ext: ['mp3'],
 		html5: true,
 		onplay: (id) => {this.setState({loading: false, playing: true, howlId: id})},
