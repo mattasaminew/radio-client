@@ -29,8 +29,8 @@ class App extends Component {
 		ext: ['mp3'],
 		html5: true,
 		onplay: (id) => {this.setState({loading: false, playing: true, howlId: id})},
-		onpause: () => {this.setState({loading: false, playing: false})},
-		onstop: () => {this.setState({loading: false, playing: false, howlId: null})},
+		onpause: () => {this.setState({playing: false})},
+		onstop: () => {this.setState({playing: false, howlId: null})},
 		onplayerror: () => {this.setState({loading: false, playing: false, howlId: null})},
 		onloaderror: () => {this.setState({loading: false, playing: false, howlId: null})}
 	});
@@ -42,8 +42,8 @@ class App extends Component {
 			format: ['mp3'],
 			html5: true,
 			onplay: (id) => {this.setState({loading: false, playing: true, howlId: id})},
-			onpause: () => {this.setState({loading: false, playing: false})},
-			onstop: () => {this.setState({loading: false, playing: false, howlId: null})},
+			onpause: () => {this.setState({playing: false})},
+			onstop: () => {this.setState({playing: false, howlId: null})},
 			onplayerror: () => {this.setState({loading: false, playing: false, howlId: null})},
 			onloaderror: () => {this.setState({loading: false, playing: false, howlId: null})}
 		})
@@ -54,19 +54,16 @@ class App extends Component {
 		return this.state.loadedHowls.find((howl) => howl.fileId === id ).howl;
 	}
 
-	playLoadedHowl() {
-		if (this.currentHowl().state() !== 'loaded') {
-			this.setState({loading: true})
-		};
-		this.currentHowl().play()
-	}
-
 	togglePlay = () => {
 		if (this.state.playing) {
 			this.currentHowl().pause();
 		} else {
-			this.playLoadedHowl();
+			this.setState({loading: true}, () => this.playLoadedHowl());
 		}
+	}
+
+	playLoadedHowl() {
+		this.currentHowl().play()
 	}
 
 	loadLiveStream = () => {
@@ -74,17 +71,18 @@ class App extends Component {
 			if (!this.state.loading && !this.state.playing) { this.playLoadedHowl(); }
 			return;
 		};
-		this.currentHowl().stop()
-		this.setState({fileId: null}, () => this.playLoadedHowl());
+		this.currentHowl().stop();
+		this.setState({loading: true, fileId: null}, () => this.playLoadedHowl());
 	}
 
 	changeLoadedHowl = (id, source) => {
 		if (this.state.fileId === id) { return; };
 		this.currentHowl().stop();
 		if (this.state.fileId === null) {
-			this.currentHowl().unload()
+			this.currentHowl().unload();
 		}
 		this.setState((prevState) => ({
+			loading: true,
 			fileId: id,
 			loadedHowls: prevState.loadedHowls.some((howl) => howl.fileId === id) ?
 										prevState.loadedHowls :
