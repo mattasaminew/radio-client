@@ -27,6 +27,11 @@
 	left: 0;
 }
 
+.app-logo-img {
+	max-width: 38.2vw;
+	max-height: 120px;
+}
+
 .header-button {
 	padding: 1em;
 	font-size: x-large;

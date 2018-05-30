@@ -4,7 +4,7 @@ import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 import { AudioContext } from '../context/audio-context';
 import { Icon, Label } from 'semantic-ui-react';
-import logo from '../backspin-logo-dj.png';
+import logo from '../img/backspin-logo-dj-text-outline.png';
 import '../css/App.css';
 
 class App extends Component {
@@ -112,7 +112,7 @@ class AppLogo extends Component {
 	render() {
 		return (
 			<Link to='/' className='app-logo'>
-				<img src={logo} alt='logo' />
+				<img src={logo} alt='logo' className='app-logo-img'/>
 			</Link>
 		);
 	}
