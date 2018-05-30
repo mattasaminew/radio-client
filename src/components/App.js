@@ -3,7 +3,7 @@ import { Howl } from 'howler';
 // import { Howl, Howler } from 'howler';
 import { Link } from 'react-router-dom';
 import { AudioContext } from '../context/audio-context';
-import { Icon, Label } from 'semantic-ui-react';
+import AudioPlayer from './AudioPlayer';
 import logo from '../img/backspin-logo-dj.png';
 import '../css/App.css';
 
@@ -94,7 +94,7 @@ class App extends Component {
 		return (
 			<AudioContext.Provider value={this.state}>
 				<div className='app'>
-					<AppLogo loadLiveStream={this.loadLiveStream} />
+					<AppLogo/>
 					<AppHeader loadLiveStream={this.loadLiveStream} />
 					<div className='app-body'>
 						{this.props.children}
@@ -133,41 +133,6 @@ class AppHeader extends Component {
 			</div>
 		);
 	}
-}
-
-class AudioPlayer extends Component {
-	render() {
-		return (
-			<AudioContext.Consumer>
-				{(context) => (
-						<div className='audio-player'>
-							<div className="play-icon-container" onClick={context.togglePlay}>
-								<Icon
-									name={context.loading ? 'spinner' : (context.playing ? 'pause' : 'play')}
-									size='big'
-									loading={context.loading}
-									className="player-icon"
-								/>
-							</div>
-							<OnAirDisplay onAir={true} playing={context.playing} />
-						</div>
-				)}
-			</AudioContext.Consumer>
-		);
-	}
-}
-
-function OnAirDisplay(props) {
-	return (
-		<Label className='on-air-display'>
-			<Icon
-				name='refresh'
-				loading={props.playing}
-				style={{color: props.onAir ? 'green' : 'red'}}
-			/>
-			Live
-		</Label>
-	);
 }
 
 export default App;
