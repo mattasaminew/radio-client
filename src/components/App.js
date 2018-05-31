@@ -4,7 +4,7 @@ import { Howl } from 'howler';
 import { Link } from 'react-router-dom';
 import { AudioContext } from '../context/audio-context';
 import AudioPlayer from './AudioPlayer';
-import logo from '../img/backspin-logo-dj.png';
+import AppHeader from './AppHeader';
 import '../css/App.css';
 
 class App extends Component {
@@ -94,7 +94,6 @@ class App extends Component {
 		return (
 			<AudioContext.Provider value={this.state}>
 				<div className='app'>
-					<AppLogo/>
 					<AppHeader loadLiveStream={this.loadLiveStream} />
 					<div className='app-body'>
 						{this.props.children}
@@ -104,35 +103,6 @@ class App extends Component {
 			</AudioContext.Provider>
 		);
   }
-}
-
-class AppLogo extends Component {
-	render() {
-		return (
-			<Link to='/' className='app-logo'>
-				<img src={logo} alt='logo' className='app-logo-img'/>
-			</Link>
-		);
-	}
-}
-
-class AppHeader extends Component {
-	render() {
-		return (
-			<div className='app-header'>
-				<div className='header-button'>
-					<Link to='/archive' className='header-button-link' >
-						ARCHIVE
-					</Link>
-				</div>
-				<div className='header-button'>
-					<div onClick={this.props.loadLiveStream}>
-						LIVE
-					</div>
-				</div>
-			</div>
-		);
-	}
 }
 
 export default App;
