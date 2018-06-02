@@ -1,0 +1,23 @@
+.app-header-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.app-logo-img {
+	max-width: 38.2vw;
+	max-height: 120px;
+}
+
+.app-logo {
+
+}
+
+.header-buttons-container {
+	display: flex;
+}
+
+.header-button {
+	padding: 1em;
+	font-size: x-large;
+}

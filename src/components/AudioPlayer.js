@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AudioContext } from '../context/audio-context';
 import { Icon, Label } from 'semantic-ui-react';
+import '../css/AudioPlayer.css';
 
 class AudioPlayer extends Component {
 	render() {

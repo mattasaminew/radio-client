@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Howl } from 'howler';
 // import { Howl, Howler } from 'howler';
-import { Link } from 'react-router-dom';
 import { AudioContext } from '../context/audio-context';
 import AudioPlayer from './AudioPlayer';
 import AppHeader from './AppHeader';
@@ -68,7 +67,9 @@ class App extends Component {
 
 	loadLiveStream = () => {
 		if (this.state.fileId === null) {
-			if (!this.state.loading && !this.state.playing) { this.playLoadedHowl(); }
+			if (!this.state.loading && !this.state.playing) {
+				this.setState({loading: true}, () => this.playLoadedHowl());
+			}
 			return;
 		};
 		this.currentHowl().stop();

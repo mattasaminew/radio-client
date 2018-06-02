@@ -1,0 +1,15 @@
+.audio-player {
+	color: black;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background-color: lightgray;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.player-icon, .on-air-display {
+	margin: 0.25em !important;
+}

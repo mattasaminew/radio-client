@@ -1,52 +1,12 @@
-.audio-player {
-	color: black;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	background-color: lightgray;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.player-icon, .on-air-display {
-	margin: 0.25em !important;
-}
-
-.app-header {
-	display: flex;
-	flex-direction: row-reverse;
-	position: fixed;
-	top: 0;
-	right: 0;
-}
-
-.app-logo {
-	position: fixed;
-	top: 0;
-	left: 0;
-}
-
-.app-logo-img {
-	max-width: 38.2vw;
-	max-height: 120px;
-}
-
-.header-button {
-	padding: 1em;
-	font-size: x-large;
-}
-
 .app-body {
 	width: 100vw;
-	min-height: 100vh;
+	/* min-height: 100vh; */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
 .app-body > div {
-	padding-top: 4em;
-	padding-bottom: 4em;
+	padding-top: 1em;
+	padding-bottom: 1em;
 }
