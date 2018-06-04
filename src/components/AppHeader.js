@@ -17,10 +17,10 @@ class AppHeader extends Component {
 			<div className='app-header-container'>
 				<AppLogo />
 				<div className='header-buttons-container'>
-					<div className='header-button'>
-						<div onClick={this.props.loadLiveStream}>
+					<div className='header-button' onClick={this.props.loadLiveStream}>
+						<a className='header-button-link'>
 							LIVE
-						</div>
+						</a>
 					</div>
 					<div className='header-button'>
 						<Link to='/archive' className='header-button-link' >
