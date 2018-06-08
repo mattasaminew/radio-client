@@ -9,25 +9,24 @@ a.show-tile-link {
 
 .show-tile-container {
 	display: flex;
+	align-items: flex-start;
 }
 
 .show-tile-image {
 	border-style: solid;
 	border-width: thick;
-	width: 25vw;
-	max-width: 250px;
+	width: 38.2%;
+	max-width: 300px;
 	margin: 1em;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-.show-tile-image:after {
-	display: block;
-	padding-bottom: 100%;
-}
 
 .show-tile-image:before {
-	padding-top: 100%;
+	content: "";
+	display: block;
+	padding-bottom: 100%;
 }
 
 .show-tile-content {
