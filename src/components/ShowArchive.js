@@ -8,6 +8,7 @@ class ShowArchive extends Component {
 		this.state = {data: null, loading: true}
 	}
 	componentDidMount() {
+		// instead of getting id from param, get it from the slug table in the context
 		fetch(process.env.REACT_APP_API_URL + '/shows/' + this.props.match.params.id)
 			.then( (response) => response.json() )
 			.then( (requestData) => this.setState({data: requestData, loading: false}) )

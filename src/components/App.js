@@ -23,18 +23,17 @@ class App extends Component {
 		};
 	}
 
-	liveStream = new Howl({
-		src: [ process.env.REACT_APP_LIVE_STREAM_URL ],
-		ext: ['mp3'],
-		html5: true,
-		onplay: (id) => {this.setState({loading: false, playing: true, howlId: id})},
-		onpause: () => {this.setState({playing: false})},
-		onstop: () => {this.setState({playing: false, howlId: null})},
-		onplayerror: () => {this.setState({loading: false, playing: false, howlId: null})},
-		onloaderror: () => {this.setState({loading: false, playing: false, howlId: null})}
-	});
+	componentDidMount() {
+		// Create slug table for route names
 
-	archiveStream = (source) => (
+		// fetch(process.env.REACT_APP_API_URL + '/shows')
+		// 	.then( (response) => response.json() )
+		// 	.then( (json) =>  ) // convert json to array of objects with id & converted slug name
+		// 	.then( (requestData) => this.setState({data: requestData, loading: false}) )
+		// 	.catch( (error) => console.log(error) );
+	}
+
+	audioStream = (source) => (
 		new Howl({
 			src: [ source ],
 			ext: ['mp3'],
@@ -47,6 +46,8 @@ class App extends Component {
 			onloaderror: () => {this.setState({loading: false, playing: false, howlId: null})}
 		})
 	);
+
+	liveStream = this.audioStream(process.env.REACT_APP_LIVE_STREAM_URL);
 
 	currentHowl = () => {
 		let id = this.state.fileId;
@@ -87,7 +88,7 @@ class App extends Component {
 			fileId: id,
 			loadedHowls: prevState.loadedHowls.some((howl) => howl.fileId === id) ?
 										prevState.loadedHowls :
-										prevState.loadedHowls.concat([{fileId: id, howl: this.archiveStream(source)}])
+										prevState.loadedHowls.concat([{fileId: id, howl: this.audioStream(source)}])
 		}), () => this.playLoadedHowl());
 	}
 

@@ -30,6 +30,7 @@ a.show-tile-link {
 }
 
 .show-tile-content {
+	align-self: center;
 	margin: 1em;
 	flex-grow: 1;
 	display: flex;
