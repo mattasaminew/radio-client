@@ -15,7 +15,7 @@ class Archive extends Component {
 			.catch( (error) => console.log(error) );
 	}
 	render() {
-		const showTiles = this.state.data ? this.state.data.map((data, index) =>  <ShowTile key={index} data={data} /> ) : null
+		const showTiles = this.state.data ? this.state.data.map((data, index) =>  <ShowTile key={index} data={data} slugContext={this.props.slugContext}/> ) : null
 		return(
 			<Container className='archive-container'>
 				{showTiles}
@@ -26,8 +26,9 @@ class Archive extends Component {
 
 class ShowTile extends Component {
 	render() {
+		const slugName = this.props.slugContext.slugTable ? this.props.slugContext.showIdToSlug(this.props.data.id) : this.props.data.id
 		return(
-			<Link to={'/archive/' + this.props.data.id} className='show-tile-link'>
+			<Link to={'/archive/' + slugName} className='show-tile-link'>
 				<div className='show-tile-container'>
 					<div className='show-tile-image'>
 						SHOW IMAGE

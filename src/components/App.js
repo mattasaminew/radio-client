@@ -23,16 +23,6 @@ class App extends Component {
 		};
 	}
 
-	componentDidMount() {
-		// Create slug table for route names
-
-		// fetch(process.env.REACT_APP_API_URL + '/shows')
-		// 	.then( (response) => response.json() )
-		// 	.then( (json) =>  ) // convert json to array of objects with id & converted slug name
-		// 	.then( (requestData) => this.setState({data: requestData, loading: false}) )
-		// 	.catch( (error) => console.log(error) );
-	}
-
 	audioStream = (source) => (
 		new Howl({
 			src: [ source ],
