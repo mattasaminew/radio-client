@@ -17,7 +17,7 @@ class AudioPlayer extends Component {
 									className="player-icon"
 								/>
 							</div>
-							<OnAirDisplay onAir={true} playing={context.playing} />
+							<OnAirDisplay context={context} />
 						</div>
 				)}
 			</AudioContext.Consumer>
@@ -26,14 +26,15 @@ class AudioPlayer extends Component {
 }
 
 function OnAirDisplay(props) {
+	const liveStream = props.context.fileId === null;
 	return (
 		<Label className='on-air-display'>
 			<Icon
-				name='refresh'
-				loading={props.playing}
-				style={{color: props.onAir ? 'green' : 'red'}}
+				name={liveStream ? 'refresh' : 'file audio outline'}
+				loading={liveStream && props.context.playing}
+				style={{color: 'green'}}
 			/>
-			Live
+			{liveStream ? 'LIVE' : 'ARCHIVE'}
 		</Label>
 	);
 }
