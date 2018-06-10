@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import 'semantic-ui-css/semantic.min.css';
+import { Icon } from 'semantic-ui-react';
 import App from './components/App';
 import Archive from './components/Archive';
 import ShowArchive from './components/ShowArchive';
@@ -10,10 +11,25 @@ import ViewRootPath from './components/ViewRootPath';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+function LoadingScreen() {
+	return (
+		<div className='loading-screen'>
+			<h2>LOADING</h2>
+			<Icon
+				name='spinner'
+				size='huge'
+				loading
+				className="loading-screen-icon"
+			/>
+		</div>
+	);
+}
+
 class Index extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			loading: true,
 			slugTable: null,
 			showIdToSlug: this.showIdToSlug,
 			slugToShowId: this.slugToShowId
@@ -21,32 +37,28 @@ class Index extends Component {
 	}
 
 	componentDidMount() {
-		fetch(process.env.REACT_APP_API_URL + '/shows')
+		fetch(process.env.REACT_APP_API_URL + '/client/slug_table')
 			.then( (response) => response.json() )
-			.then( (json) => this.mapSlugTable(json) )
-			.then( (mappedJson) => this.setState({slugTable: mappedJson}) )
+			.then( (json) => this.setState({slugTable: json, loading: false}) )
 			.catch( (error) => console.log('Slug table for routing could not load', error) );
 	}
 
-	mapSlugTable = (arr) => {
-		return arr.map((object) => { return {
-			showId: object.id,
-			slugName: object.name.toLowerCase().replace(/[\s]/, '-').replace(/[^a-z0-9-]/g, '')
-		}})
-	}
-
 	showIdToSlug = (id) => {
-		let table = this.state.slugTable ? this.state.slugTable.find((item) => item.showId === id) : null
-		return table ? table.slugName : id
+		let table = this.state.slugTable ? this.state.slugTable.find((item) => item.id === id) : null
+		return table ? table.slug_name : id
 	}
 
 	slugToShowId = (slug) => {
-		let table = this.state.slugTable ? this.state.slugTable.find((item) => item.slugName === slug) : null
-		return table ? table.showId : slug
+		let table = this.state.slugTable ? this.state.slugTable.find((item) => item.slug_name === slug) : null
+		return table ? table.id : slug
 	}
 
 	render() {
 		return (
+			this.state.loading ?
+
+			<LoadingScreen/>
+			:
 			<Router>
 				<App>
 					<Switch>
