@@ -17,11 +17,11 @@ class ShowArchive extends Component {
 		}
 	}
 	render() {
-		const mixesAvailable = this.state.data && this.state.data.length
-		const mixTiles = mixesAvailable ? this.state.data.map((data, index) =>  <MixTile key={index} data={data}/>) : null
+		const mixesAvailable = this.state.data && this.state.data.episodes.length
+		const mixTiles = mixesAvailable ? this.state.data.episodes.map((data, index) =>  <MixTile key={index} data={data}/>) : null
 		return(
 			<div className='show-archive-container'>
-				<h2>{mixesAvailable ? this.state.data[0].artist_name : null}</h2>
+				<h2>{this.state.data ? this.state.data.show.name : null}</h2>
 				<div>
 					{mixTiles}
 				</div>
