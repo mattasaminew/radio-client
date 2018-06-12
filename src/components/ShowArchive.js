@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AudioContext } from '../context/audio-context';
+import { Container } from 'semantic-ui-react';
 import '../css/ShowArchive.css';
 
 class ShowArchive extends Component {
@@ -20,12 +21,27 @@ class ShowArchive extends Component {
 		const mixesAvailable = this.state.data && this.state.data.episodes.length
 		const mixTiles = mixesAvailable ? this.state.data.episodes.map((data, index) =>  <MixTile key={index} data={data}/>) : null
 		return(
-			<div className='show-archive-container'>
-				<h2>{this.state.data ? this.state.data.show.name : null}</h2>
+			<Container className='show-archive-container'>
+				<div className='show-archive-tile-container'>
+					<div className='show-archive-tile-image'>
+						SHOW IMAGE
+					</div>
+					<div className='show-archive-tile-content'>
+						<div className='show-archive-tile-item name'>
+							{this.state.data ? this.state.data.show.name : null}
+						</div>
+						<div className='show-archive-tile-item genre'>
+							{this.state.data ? this.state.data.show.genre : null}
+						</div>
+						<div className='show-archive-tile-item genre'>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+						</div>
+					</div>
+				</div>
 				<div>
 					{mixTiles}
 				</div>
-			</div>
+			</Container>
 		);
 	}
 }
