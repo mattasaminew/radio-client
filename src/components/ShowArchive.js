@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AudioContext } from '../context/audio-context';
-import { Container } from 'semantic-ui-react';
+import { Container, Segment, Icon } from 'semantic-ui-react';
 import '../css/ShowArchive.css';
 
 class ShowArchive extends Component {
@@ -39,7 +39,9 @@ class ShowArchive extends Component {
 					</div>
 				</div>
 				<div>
-					{mixTiles}
+					<Segment.Group>
+						{mixTiles}
+					</Segment.Group>
 				</div>
 			</Container>
 		);
@@ -52,9 +54,13 @@ class MixTile extends Component {
 		return(
 			<AudioContext.Consumer>
 				{(context) => (
-						<div className='show-tile' onClick={() => context.changeLoadedHowl(this.props.data.id, sourceLink)}>
+						<Segment className='show-tile' onClick={() => context.changeLoadedHowl(this.props.data.id, sourceLink)}>
+							<Icon
+								name={context.fileId === this.props.data.id ? 'refresh' : 'file audio'}
+								loading={context.playing && (context.fileId === this.props.data.id)}
+							/>
 							{this.props.data.track_title}
-						</div>
+						</Segment>
 				)}
 			</AudioContext.Consumer>
 		);
