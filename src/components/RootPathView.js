@@ -1,7 +1,7 @@
 import React from 'react';
-import '../css/ViewRootPath.css';
+import '../css/RootPathView.css';
 
-const ViewRootPath = () => {
+const RootPathView = () => {
 	return(
 		<div>
 			<div>
@@ -149,4 +149,4 @@ const ViewRootPath = () => {
 	);
 }
 
-export default ViewRootPath;
+export default RootPathView;

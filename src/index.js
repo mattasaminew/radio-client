@@ -7,7 +7,7 @@ import App from './components/App';
 import Archive from './components/Archive';
 import ShowArchive from './components/ShowArchive';
 import View404 from './components/View404';
-import ViewRootPath from './components/ViewRootPath';
+import RootPathView from './components/RootPathView';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -68,7 +68,7 @@ class Index extends Component {
 						<Route path='/archive/' component={ (props) =>
 							<Archive {...props} slugContext={this.state}/>
 						}/>
-						<Route exact path='/' component={ViewRootPath} />
+						<Route exact path='/' component={RootPathView} />
 						<Route component={View404} />
 					</Switch>
 				</App>
