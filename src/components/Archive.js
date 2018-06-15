@@ -41,7 +41,7 @@ class ShowTile extends Component {
 							{this.props.data.genre}
 						</div>
 						<div className='show-tile-item genre'>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+							{this.props.data.description}
 						</div>
 					</div>
 				</div>

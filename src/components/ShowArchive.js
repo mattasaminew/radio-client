@@ -34,7 +34,7 @@ class ShowArchive extends Component {
 							{this.state.data ? this.state.data.show.genre : null}
 						</div>
 						<div className='show-archive-tile-item genre'>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+							{this.state.data ? this.state.data.show.description : null}
 						</div>
 					</div>
 				</div>

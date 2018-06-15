@@ -1,13 +1,14 @@
 .show-archive-tile-container {
 	display: flex;
 	align-items: flex-start;
+	width: 100%;
 }
 
 .show-archive-tile-image {
 	border-style: solid;
 	border-width: thick;
-	width: 38.2%;
-	max-width: 200px;
+	max-width: calc(38.2% - 2em);
+	width: 200px;
 	margin: 1em;
 	display: flex;
 	justify-content: center;
@@ -22,8 +23,14 @@
 
 .show-archive-tile-content {
 	align-self: center;
-	margin: 1em;
 	flex-grow: 1;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	width: 61.8%;
 	display: flex;
 	flex-direction: column;
+}
+
+.show-archive-tile-item {
+	display: block;
 }
